@@ -1,0 +1,23 @@
+<h1>Agregar Capacitación</h1>
+<form method="POST">
+    Código: <input type="text" name="codigo" required><br>
+    Nombre: <input type="text" name="nombre" required><br>
+    Tipo: 
+    <select name="tipo">
+        <option value="Sincrónica">Sincrónica</option>
+        <option value="Autoformativa">Autoformativa</option>
+        <option value="B-Learning">B-Learning</option>
+        <option value="Semi Presencial">Semi Presencial</option>
+        <option value="Presencial">Presencial</option>
+        <option value="Programa">Programa</option>
+    </select><br>
+    Fecha Inicio: <input type="date" name="fecha_inicio" required><br>
+    Fecha Fin: <input type="date" name="fecha_fin" required><br>
+    Modalidad: 
+    <select name="modalidad">
+        <option value="Virtual">Virtual</option>
+        <option value="Presencial">Presencial</option>
+        <option value="Mixta">Mixta</option>
+    </select><br>
+    <button type="submit">Guardar</button>
+</form>

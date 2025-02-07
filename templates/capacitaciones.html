@@ -1,0 +1,9 @@
+<h1>Gestión de Capacitaciones</h1>
+{% if rol in ['Especialista', 'Administrador'] %}
+    <a href="{{ url_for('add_capacitacion') }}">Agregar Nueva Capacitación</a>
+{% endif %}
+<ul>
+    {% for cap in capacitaciones %}
+        <li>{{ cap.nombre }} ({{ cap.tipo }}) - {{ cap.fecha_inicio }} a {{ cap.fecha_fin }}</li>
+    {% endfor %}
+</ul>

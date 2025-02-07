@@ -1,0 +1,9 @@
+<h1>Gestión de Actividades</h1>
+{% if rol in ['Especialista', 'Administrador'] %}
+    <a href="{{ url_for('add_actividad') }}">Agregar Nueva Actividad</a>
+{% endif %}
+<ul>
+    {% for act in actividades %}
+        <li>{{ act.nombre_actividad }} - {{ act.fecha }} {{ act.hora }} ({{ act.tipo_evaluacion }}, {{ act.escala }})</li>
+    {% endfor %}
+</ul>
