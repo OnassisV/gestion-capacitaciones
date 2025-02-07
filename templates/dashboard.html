@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Control</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Bienvenido, {{ usuario }}</h1>
+        <p>Rol: {{ rol }}</p>
+        <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+    </header>
+    <main>
+        <a href="{{ url_for('capacitaciones') }}">Gestión de Capacitaciones</a>
+        <a href="{{ url_for('actividades') }}">Gestión de Actividades</a>
+    </main>
+</body>
+</html>
