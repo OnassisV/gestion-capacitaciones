@@ -19,8 +19,8 @@
             <tr>
                 <th>Capacitación</th>
                 <th>Nombre Actividad</th>
-                <th>Fecha</th>
-                <th>Hora</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
                 <th>Tipo Evaluación</th>
                 <th>Escala</th>
             </tr>
@@ -30,13 +30,12 @@
             <tr>
                 <td>{{ act.capacitacion }}</td>
                 <td>{{ act.nombre_actividad }}</td>
-                <td>{{ act.fecha }}</td>
-                <td>{{ act.hora }}</td>
+                <td>{{ act.fecha_inicio }}</td>
+                <td>{{ act.fecha_fin }}</td>
                 <td>{{ act.tipo_evaluacion }}</td>
                 <td>{{ act.escala }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-</body>
-</html>
+

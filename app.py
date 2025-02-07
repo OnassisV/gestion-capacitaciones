@@ -88,17 +88,20 @@ def add_capacitacion():
 
 @app.route('/actividades')
 def actividades():
-    if 'usuario' not in session:
-        return redirect(url_for('login'))
-
     connection = get_db_connection()
     cursor = connection.cursor(dictionary=True)
-    cursor.execute("SELECT a.id_actividad, a.nombre_actividad, a.fecha, a.hora, c.nombre AS capacitacion FROM actividades a JOIN capacitaciones c ON a.id_capacitacion = c.id_capacitacion")
+    cursor.execute("""
+        SELECT a.id_actividad, a.nombre_actividad, a.fecha_inicio, a.fecha_fin, c.nombre AS capacitacion,
+               a.tipo_evaluacion, a.escala
+        FROM actividades a
+        JOIN capacitaciones c ON a.id_capacitacion = c.id_capacitacion
+    """)
     actividades = cursor.fetchall()
     cursor.close()
     connection.close()
 
     return render_template('actividades.html', actividades=actividades, rol=session['rol'])
+
 
 @app.route('/actividades/add', methods=['GET', 'POST'])
 def add_actividad():
@@ -115,15 +118,18 @@ def add_actividad():
     if request.method == 'POST':
         id_capacitacion = request.form['id_capacitacion']
         nombre_actividad = request.form['nombre_actividad']
-        fecha = request.form['fecha']
-        hora = request.form['hora']
+        fecha_inicio = request.form['fecha_inicio']
+        fecha_fin = request.form['fecha_fin']
         tipo_evaluacion = request.form['tipo_evaluacion']
         escala = request.form['escala']
 
         connection = get_db_connection()
         cursor = connection.cursor()
-        sql = "INSERT INTO actividades (id_capacitacion, nombre_actividad, fecha, hora, tipo_evaluacion, escala) VALUES (%s, %s, %s, %s, %s, %s)"
-        cursor.execute(sql, (id_capacitacion, nombre_actividad, fecha, hora, tipo_evaluacion, escala))
+        sql = """
+            INSERT INTO actividades (id_capacitacion, nombre_actividad, fecha_inicio, fecha_fin, tipo_evaluacion, escala)
+            VALUES (%s, %s, %s, %s, %s, %s)
+        """
+        cursor.execute(sql, (id_capacitacion, nombre_actividad, fecha_inicio, fecha_fin, tipo_evaluacion, escala))
         connection.commit()
         cursor.close()
         connection.close()
@@ -131,6 +137,7 @@ def add_actividad():
         return redirect(url_for('actividades'))
 
     return render_template('add_actividad.html', capacitaciones=capacitaciones, rol=session['rol'])
+
 
 if __name__ == '__main__':
     app.run(debug=True)
