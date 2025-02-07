@@ -1,3 +1,4 @@
+import bcrypt
 from flask import Flask, render_template, request, redirect, url_for, session
 from config import get_db_connection
 
@@ -6,26 +7,34 @@ app.secret_key = "clave_secreta"  # Cambiar por una clave segura
 
 @app.route('/')
 def login():
-    return render_template('login.html')
+    connection = get_db_connection()
+    cursor = connection.cursor(dictionary=True)
+    cursor.execute("SELECT correo FROM usuarios")
+    correos = cursor.fetchall()
+    cursor.close()
+    connection.close()
+    return render_template('login.html', correos=correos)
+
 
 @app.route('/auth', methods=['POST'])
 def auth():
-    usuario = request.form['usuario']
+    correo = request.form['correo']
     password = request.form['password']
 
     connection = get_db_connection()
     cursor = connection.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM usuarios WHERE nombre_usuario = %s AND password = %s", (usuario, password))
+    cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (correo,))
     user = cursor.fetchone()
     cursor.close()
     connection.close()
 
-    if user:
-        session['usuario'] = user['nombre_usuario']
+    if user and bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
+        session['usuario'] = user['correo']
         session['rol'] = user['rol']
         return redirect(url_for('dashboard'))
     else:
         return render_template('login.html', error="Credenciales incorrectas")
+
 
 @app.route('/dashboard')
 def dashboard():
@@ -122,7 +131,6 @@ def add_actividad():
         return redirect(url_for('actividades'))
 
     return render_template('add_actividad.html', capacitaciones=capacitaciones, rol=session['rol'])
-
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -12,7 +12,12 @@
             <p class="error">{{ error }}</p>
         {% endif %}
         <form method="POST" action="{{ url_for('auth') }}">
-            <input type="text" name="usuario" placeholder="Usuario" required>
+            <label for="correo">Selecciona tu correo:</label>
+            <select name="correo" required>
+                {% for usuario in correos %}
+                    <option value="{{ usuario.correo }}">{{ usuario.correo }}</option>
+                {% endfor %}
+            </select>
             <input type="password" name="password" placeholder="Contraseña" required>
             <button type="submit">Ingresar</button>
         </form>
