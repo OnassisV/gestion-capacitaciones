@@ -29,7 +29,7 @@ def auth():
     connection.close()
 
     if user and bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
-        session['usuario'] = user['correo']
+        session['usuario'] = user['nombre_usuario']
         session['rol'] = user['rol']
         return redirect(url_for('dashboard'))
     else:

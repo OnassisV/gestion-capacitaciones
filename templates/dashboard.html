@@ -9,11 +9,12 @@
     <header>
         <h1>Bienvenido, {{ session['usuario'] }}</h1>
         <p>Rol: {{ session['rol'] }}</p>
-        <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+        <a href="{{ url_for('logout') }}" class="btn-logout">Cerrar Sesión</a>
     </header>
-    <main>
-        <a href="{{ url_for('capacitaciones') }}">Gestión de Capacitaciones</a>
-        <a href="{{ url_for('actividades') }}">Gestión de Actividades</a>
+    
+    <main class="dashboard">
+        <button onclick="location.href='{{ url_for('capacitaciones') }}'">Gestionar Capacitaciones</button>
+        <button onclick="location.href='{{ url_for('actividades') }}'">Gestionar Actividades</button>
     </main>
 </body>
 </html>

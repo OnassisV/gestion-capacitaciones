@@ -1,9 +1,42 @@
-<h1>Gestión de Actividades</h1>
-{% if rol in ['Especialista', 'Administrador'] %}
-    <a href="{{ url_for('add_actividad') }}">Agregar Nueva Actividad</a>
-{% endif %}
-<ul>
-    {% for act in actividades %}
-        <li>{{ act.nombre_actividad }} - {{ act.fecha }} {{ act.hora }} ({{ act.tipo_evaluacion }}, {{ act.escala }})</li>
-    {% endfor %}
-</ul>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Actividades</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Gestión de Actividades</h1>
+
+    <button onclick="location.href='{{ url_for('dashboard') }}'">⬅️ Volver al Panel</button>
+
+    {% if rol in ['Especialista', 'Administrador'] %}
+        <button onclick="location.href='{{ url_for('add_actividad') }}'">➕ Agregar Nueva Actividad</button>
+    {% endif %}
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Capacitación</th>
+                <th>Nombre Actividad</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Tipo Evaluación</th>
+                <th>Escala</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for act in actividades %}
+            <tr>
+                <td>{{ act.capacitacion }}</td>
+                <td>{{ act.nombre_actividad }}</td>
+                <td>{{ act.fecha }}</td>
+                <td>{{ act.hora }}</td>
+                <td>{{ act.tipo_evaluacion }}</td>
+                <td>{{ act.escala }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

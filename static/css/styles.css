@@ -2,38 +2,49 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
     color: #333;
-}
-
-header {
-    background-color: #003366;
-    color: white;
-    padding: 10px;
     text-align: center;
 }
 
-a {
-    color: #0055A4;
+button {
+    background-color: #0055A4;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #003366;
+}
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background-color: #0055A4;
+    color: white;
+}
+
+.btn-logout {
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
     text-decoration: none;
 }
 
-a:hover {
-    text-decoration: underline;
-}
-
-.login-container {
-    max-width: 300px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.login-container h1 {
-    text-align: center;
-}
-
-.error {
-    color: red;
-    font-size: 0.9em;
+.btn-logout:hover {
+    background-color: darkred;
 }

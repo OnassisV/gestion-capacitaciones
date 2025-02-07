@@ -1,9 +1,42 @@
-<h1>Gestión de Capacitaciones</h1>
-{% if rol in ['Especialista', 'Administrador'] %}
-    <a href="{{ url_for('add_capacitacion') }}">Agregar Nueva Capacitación</a>
-{% endif %}
-<ul>
-    {% for cap in capacitaciones %}
-        <li>{{ cap.nombre }} ({{ cap.tipo }}) - {{ cap.fecha_inicio }} a {{ cap.fecha_fin }}</li>
-    {% endfor %}
-</ul>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Capacitaciones</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Gestión de Capacitaciones</h1>
+    
+    <button onclick="location.href='{{ url_for('dashboard') }}'">⬅️ Volver al Panel</button>
+    
+    {% if rol in ['Especialista', 'Administrador'] %}
+        <button onclick="location.href='{{ url_for('add_capacitacion') }}'">➕ Agregar Nueva Capacitación</button>
+    {% endif %}
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Modalidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cap in capacitaciones %}
+            <tr>
+                <td>{{ cap.codigo }}</td>
+                <td>{{ cap.nombre }}</td>
+                <td>{{ cap.tipo }}</td>
+                <td>{{ cap.fecha_inicio }}</td>
+                <td>{{ cap.fecha_fin }}</td>
+                <td>{{ cap.modalidad }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
