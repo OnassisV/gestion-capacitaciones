@@ -1,24 +1,46 @@
-<h1>Agregar Capacitación</h1>
-<form method="POST">
-    Código: <input type="text" name="codigo" required><br>
-    Nombre: <input type="text" name="nombre" required><br>
-    Tipo: 
-    <select name="tipo">
-        <option value="Sincrónica">Sincrónica</option>
-        <option value="Autoformativa">Autoformativa</option>
-        <option value="B-Learning">B-Learning</option>
-        <option value="Semi Presencial">Semi Presencial</option>
-        <option value="Presencial">Presencial</option>
-        <option value="Programa">Programa</option>
-    </select><br>
-    Fecha Inicio: <input type="date" name="fecha_inicio" required><br>
-    Fecha Fin: <input type="date" name="fecha_fin" required><br>
-    Modalidad: 
-    <select name="modalidad">
-        <option value="Virtual">Virtual</option>
-        <option value="Presencial">Presencial</option>
-        <option value="Mixta">Mixta</option>
-    </select><br>
-    <button type="submit">✅ Guardar</button>
-    <button type="button" onclick="location.href='{{ url_for('capacitaciones') }}'">⬅️ Volver</button>
-</form>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Capacitación</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Agregar Capacitación</h1>
+        <form method="POST">
+            <label for="codigo">Código:</label>
+            <input type="text" id="codigo" name="codigo" required><br>
+
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required><br>
+
+            <label for="tipo">Tipo:</label>
+            <select id="tipo" name="tipo">
+                <option value="Sincrónica">Sincrónica</option>
+                <option value="Autoformativa">Autoformativa</option>
+                <option value="B-Learning">B-Learning</option>
+                <option value="Semi Presencial">Semi Presencial</option>
+                <option value="Presencial">Presencial</option>
+                <option value="Programa">Programa</option>
+            </select><br>
+
+            <label for="fecha_inicio">Fecha Inicio:</label>
+            <input type="date" id="fecha_inicio" name="fecha_inicio" required><br>
+
+            <label for="fecha_fin">Fecha Fin:</label>
+            <input type="date" id="fecha_fin" name="fecha_fin" required><br>
+
+            <label for="modalidad">Modalidad:</label>
+            <select id="modalidad" name="modalidad">
+                <option value="Virtual">Virtual</option>
+                <option value="Presencial">Presencial</option>
+                <option value="Mixta">Mixta</option>
+            </select><br>
+
+            <button type="submit">✅ Guardar</button>
+            <button type="button" onclick="location.href='{{ url_for('capacitaciones') }}'">⬅️ Volver</button>
+        </form>
+    </div>
+</body>
+</html>

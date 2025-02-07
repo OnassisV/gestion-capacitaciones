@@ -3,6 +3,36 @@ body {
     background-color: #f4f4f9;
     color: #333;
     text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: #0055A4;
+}
+
+.form-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+    text-align: left;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
 button {
@@ -20,31 +50,10 @@ button:hover {
     background-color: #003366;
 }
 
-table {
-    width: 80%;
-    margin: 20px auto;
-    border-collapse: collapse;
+button[type="button"] {
+    background-color: #999;
 }
 
-th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-th {
-    background-color: #0055A4;
-    color: white;
-}
-
-.btn-logout {
-    background-color: red;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.btn-logout:hover {
-    background-color: darkred;
+button[type="button"]:hover {
+    background-color: #666;
 }

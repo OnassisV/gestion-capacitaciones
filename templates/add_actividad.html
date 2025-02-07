@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Actividad</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Agregar Actividad</h1>
+        <form method="POST">
+            <label for="id_capacitacion">Capacitación:</label>
+            <select id="id_capacitacion" name="id_capacitacion">
+                {% for cap in capacitaciones %}
+                    <option value="{{ cap.id_capacitacion }}">{{ cap.nombre }}</option>
+                {% endfor %}
+            </select><br>
+
+            <label for="nombre_actividad">Nombre de la Actividad:</label>
+            <input type="text" id="nombre_actividad" name="nombre_actividad" required><br>
+
+            <label for="fecha_inicio">Fecha y Hora Inicio:</label>
+            <input type="datetime-local" id="fecha_inicio" name="fecha_inicio" required><br>
+
+            <label for="fecha_fin">Fecha y Hora Fin:</label>
+            <input type="datetime-local" id="fecha_fin" name="fecha_fin" required><br>
+
+            <label for="tipo_evaluacion">Tipo de Evaluación:</label>
+            <select id="tipo_evaluacion" name="tipo_evaluacion">
+                <option value="Cumplimiento">Cumplimiento</option>
+                <option value="Nota">Nota</option>
+            </select><br>
+
+            <label for="escala">Escala:</label>
+            <select id="escala" name="escala">
+                <option value="Dicotómica">Dicotómica</option>
+                <option value="Vigesimal">Vigesimal</option>
+            </select><br>
+
+            <button type="submit">✅ Guardar</button>
+            <button type="button" onclick="location.href='{{ url_for('actividades') }}'">⬅️ Volver</button>
+        </form>
+    </div>
+</body>
+</html>
