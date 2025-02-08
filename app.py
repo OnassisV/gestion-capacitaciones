@@ -63,28 +63,37 @@ def capacitaciones():
 
 @app.route('/capacitaciones/add', methods=['GET', 'POST'])
 def add_capacitacion():
-    if 'usuario' not in session or session['rol'] not in ['Especialista', 'Administrador']:
-        return redirect(url_for('login'))
+    connection = get_db_connection()
 
     if request.method == 'POST':
-        codigo = request.form['codigo']
-        nombre = request.form['nombre']
-        tipo = request.form['tipo']
-        fecha_inicio = request.form['fecha_inicio']
-        fecha_fin = request.form['fecha_fin']
-        modalidad = request.form['modalidad']
+        # Datos del formulario
+        codigo_capacitacion = request.form['codigo_capacitacion']
+        nombre_capacitacion = request.form['nombre_capacitacion']
+        id_unidad_organica = request.form['id_unidad_organica']
 
-        connection = get_db_connection()
+        # Guardar en la base de datos
         cursor = connection.cursor()
-        sql = "INSERT INTO capacitaciones (codigo, nombre, tipo, fecha_inicio, fecha_fin, modalidad) VALUES (%s, %s, %s, %s, %s, %s)"
-        cursor.execute(sql, (codigo, nombre, tipo, fecha_inicio, fecha_fin, modalidad))
+        sql = """
+            INSERT INTO capacitaciones (codigo_capacitacion, nombre_capacitacion, id_unidad_organica, siglas_unidad_organica)
+            VALUES (%s, %s, %s, 
+                (SELECT siglas FROM unidades_organicas WHERE id_unidad_organica = %s))
+        """
+        cursor.execute(sql, (codigo_capacitacion, nombre_capacitacion, id_unidad_organica, id_unidad_organica))
         connection.commit()
         cursor.close()
         connection.close()
 
         return redirect(url_for('capacitaciones'))
 
-    return render_template('add_capacitacion.html', rol=session['rol'])
+    # Obtener las unidades orgánicas
+    cursor = connection.cursor(dictionary=True)
+    cursor.execute("SELECT id_unidad_organica, nombre_unidad_organica, siglas FROM unidades_organicas")
+    unidades = cursor.fetchall()
+    cursor.close()
+    connection.close()
+
+    return render_template('add_capacitacion.html', unidades=unidades)
+
 
 @app.route('/actividades')
 def actividades():

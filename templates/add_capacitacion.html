@@ -4,39 +4,36 @@
     <meta charset="UTF-8">
     <title>Agregar Capacitación</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script>
+        function actualizarSiglas() {
+            const unidadSelect = document.getElementById('unidad_organica');
+            const siglasInput = document.getElementById('siglas');
+            const selectedOption = unidadSelect.options[unidadSelect.selectedIndex];
+            siglasInput.value = selectedOption.dataset.siglas;
+        }
+    </script>
 </head>
 <body>
     <div class="form-container">
         <h1>Agregar Capacitación</h1>
         <form method="POST">
-            <label for="codigo">Código:</label>
-            <input type="text" id="codigo" name="codigo" required><br>
+            <label for="codigo_capacitacion">Código de Capacitación:</label>
+            <input type="text" id="codigo_capacitacion" name="codigo_capacitacion" required><br>
 
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required><br>
+            <label for="nombre_capacitacion">Nombre de la Capacitación:</label>
+            <input type="text" id="nombre_capacitacion" name="nombre_capacitacion" required><br>
 
-            <label for="tipo">Tipo:</label>
-            <select id="tipo" name="tipo">
-                <option value="Sincrónica">Sincrónica</option>
-                <option value="Autoformativa">Autoformativa</option>
-                <option value="B-Learning">B-Learning</option>
-                <option value="Semi Presencial">Semi Presencial</option>
-                <option value="Presencial">Presencial</option>
-                <option value="Programa">Programa</option>
+            <label for="unidad_organica">Órgano o Unidad Orgánica:</label>
+            <select id="unidad_organica" name="id_unidad_organica" onchange="actualizarSiglas()">
+                {% for unidad in unidades %}
+                <option value="{{ unidad.id_unidad_organica }}" data-siglas="{{ unidad.siglas }}">
+                    {{ unidad.nombre_unidad_organica }}
+                </option>
+                {% endfor %}
             </select><br>
 
-            <label for="fecha_inicio">Fecha Inicio:</label>
-            <input type="date" id="fecha_inicio" name="fecha_inicio" required><br>
-
-            <label for="fecha_fin">Fecha Fin:</label>
-            <input type="date" id="fecha_fin" name="fecha_fin" required><br>
-
-            <label for="modalidad">Modalidad:</label>
-            <select id="modalidad" name="modalidad">
-                <option value="Virtual">Virtual</option>
-                <option value="Presencial">Presencial</option>
-                <option value="Mixta">Mixta</option>
-            </select><br>
+            <label for="siglas">Siglas:</label>
+            <input type="text" id="siglas" name="siglas" readonly><br>
 
             <button type="submit">✅ Guardar</button>
             <button type="button" onclick="location.href='{{ url_for('capacitaciones') }}'">⬅️ Volver</button>
