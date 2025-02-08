@@ -92,3 +92,70 @@ button[type="button"]:hover {
     word-wrap: break-word;
     max-width: 200px;
 }
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #0055A4;
+    margin-bottom: 20px;
+}
+
+.button-group {
+    margin-bottom: 20px;
+}
+
+.btn {
+    background-color: #0055A4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: #003366;
+}
+
+.capacitaciones-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    font-size: 14px;
+    text-align: left;
+}
+
+.capacitaciones-table th,
+.capacitaciones-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    vertical-align: top;
+}
+
+.capacitaciones-table th {
+    background-color: #0055A4;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.capacitaciones-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.capacitaciones-table tr:hover {
+    background-color: #e0e0e0;
+}
+
+.capacitaciones-table td {
+    word-wrap: break-word;
+    max-width: 200px;
+    text-align: left;
+}

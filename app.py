@@ -183,38 +183,37 @@ def actividades():
 
 @app.route('/actividades/add', methods=['GET', 'POST'])
 def add_actividad():
-    if 'usuario' not in session or session['rol'] not in ['Especialista', 'Administrador']:
-        return redirect(url_for('login'))
-
     connection = get_db_connection()
     cursor = connection.cursor(dictionary=True)
-    cursor.execute("SELECT id_capacitacion, nombre FROM capacitaciones")
+
+    # Obtener la lista de capacitaciones para el formulario
+    cursor.execute("SELECT id_capacitacion, nombre_capacitacion FROM capacitaciones")
     capacitaciones = cursor.fetchall()
     cursor.close()
     connection.close()
 
     if request.method == 'POST':
+        # Recibir datos del formulario
         id_capacitacion = request.form['id_capacitacion']
         nombre_actividad = request.form['nombre_actividad']
         fecha_inicio = request.form['fecha_inicio']
         fecha_fin = request.form['fecha_fin']
-        tipo_evaluacion = request.form['tipo_evaluacion']
-        escala = request.form['escala']
 
+        # Guardar actividad en la base de datos
         connection = get_db_connection()
         cursor = connection.cursor()
         sql = """
-            INSERT INTO actividades (id_capacitacion, nombre_actividad, fecha_inicio, fecha_fin, tipo_evaluacion, escala)
-            VALUES (%s, %s, %s, %s, %s, %s)
+            INSERT INTO actividades (id_capacitacion, nombre_actividad, fecha_inicio, fecha_fin)
+            VALUES (%s, %s, %s, %s)
         """
-        cursor.execute(sql, (id_capacitacion, nombre_actividad, fecha_inicio, fecha_fin, tipo_evaluacion, escala))
+        cursor.execute(sql, (id_capacitacion, nombre_actividad, fecha_inicio, fecha_fin))
         connection.commit()
         cursor.close()
         connection.close()
 
         return redirect(url_for('actividades'))
 
-    return render_template('add_actividad.html', capacitaciones=capacitaciones, rol=session['rol'])
+    return render_template('add_actividad.html', capacitaciones=capacitaciones)
 
 
 if __name__ == '__main__':
