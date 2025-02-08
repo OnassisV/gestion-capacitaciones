@@ -11,7 +11,7 @@
     <button onclick="location.href='{{ url_for('dashboard') }}'">⬅️ Volver al Panel</button>
     <button onclick="location.href='{{ url_for('add_capacitacion') }}'">➕ Agregar Nueva Capacitación</button>
 
-    <table border="1">
+    <table class="capacitaciones-table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -49,13 +49,13 @@
                 <td>{{ cap.publico_objetivo }}</td>
                 <td>{{ cap.horas_cronologicas }}</td>
                 <td>
-                    Inicio Convocatoria: {{ cap.convocatoria_fecha_inicio }}<br>
-                    Inicio Implementación: {{ cap.implementacion_fecha_inicio }}<br>
-                    Fin Implementación: {{ cap.implementacion_fecha_fin }}
+                    Convocatoria: {{ cap.convocatoria_fecha_inicio }}<br>
+                    Implementación Inicio: {{ cap.implementacion_fecha_inicio }}<br>
+                    Implementación Fin: {{ cap.implementacion_fecha_fin }}
                 </td>
             </tr>
             {% endfor %}
         </tbody>
-    </table>
+    </table>    
 </body>
 </html>
