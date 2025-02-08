@@ -10,32 +10,30 @@
 
     <button onclick="location.href='{{ url_for('dashboard') }}'">⬅️ Volver al Panel</button>
 
-    {% if rol in ['Especialista', 'Administrador'] %}
-        <button onclick="location.href='{{ url_for('add_actividad') }}'">➕ Agregar Nueva Actividad</button>
-    {% endif %}
+    <!-- Botón siempre visible para todos los roles -->
+    <button onclick="location.href='{{ url_for('add_actividad') }}'">➕ Agregar Actividad</button>
 
-    <table border="1">
+    <table class="actividades-table">
         <thead>
             <tr>
-                <th>Capacitación</th>
+                <th>ID</th>
                 <th>Nombre Actividad</th>
                 <th>Fecha Inicio</th>
                 <th>Fecha Fin</th>
-                <th>Tipo Evaluación</th>
-                <th>Escala</th>
+                <th>Capacitación</th>
             </tr>
         </thead>
         <tbody>
-            {% for act in actividades %}
+            {% for actividad in actividades %}
             <tr>
-                <td>{{ act.capacitacion }}</td>
-                <td>{{ act.nombre_actividad }}</td>
-                <td>{{ act.fecha_inicio }}</td>
-                <td>{{ act.fecha_fin }}</td>
-                <td>{{ act.tipo_evaluacion }}</td>
-                <td>{{ act.escala }}</td>
+                <td>{{ actividad.id_actividad }}</td>
+                <td>{{ actividad.nombre_actividad }}</td>
+                <td>{{ actividad.fecha_inicio }}</td>
+                <td>{{ actividad.fecha_fin }}</td>
+                <td>{{ actividad.capacitacion }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-
+</body>
+</html>

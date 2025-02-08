@@ -168,17 +168,17 @@ def add_capacitacion():
 def actividades():
     connection = get_db_connection()
     cursor = connection.cursor(dictionary=True)
+    
+    # Consulta corregida
     cursor.execute("""
-        SELECT a.id_actividad, a.nombre_actividad, a.fecha_inicio, a.fecha_fin, c.nombre AS capacitacion,
-               a.tipo_evaluacion, a.escala
+        SELECT a.id_actividad, a.nombre_actividad, a.fecha_inicio, a.fecha_fin, c.nombre_capacitacion AS capacitacion
         FROM actividades a
         JOIN capacitaciones c ON a.id_capacitacion = c.id_capacitacion
     """)
     actividades = cursor.fetchall()
     cursor.close()
     connection.close()
-
-    return render_template('actividades.html', actividades=actividades, rol=session['rol'])
+    return render_template('actividades.html', actividades=actividades)
 
 
 @app.route('/actividades/add', methods=['GET', 'POST'])
