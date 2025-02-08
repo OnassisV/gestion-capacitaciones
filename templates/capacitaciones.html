@@ -7,33 +7,52 @@
 </head>
 <body>
     <h1>Gestión de Capacitaciones</h1>
-    
+
     <button onclick="location.href='{{ url_for('dashboard') }}'">⬅️ Volver al Panel</button>
-    
-    {% if rol in ['Especialista', 'Administrador'] %}
-        <button onclick="location.href='{{ url_for('add_capacitacion') }}'">➕ Agregar Nueva Capacitación</button>
-    {% endif %}
+    <button onclick="location.href='{{ url_for('add_capacitacion') }}'">➕ Agregar Nueva Capacitación</button>
 
     <table border="1">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Código</th>
                 <th>Nombre</th>
                 <th>Tipo</th>
-                <th>Fecha Inicio</th>
-                <th>Fecha Fin</th>
                 <th>Modalidad</th>
+                <th>Condición</th>
+                <th>Réplica</th>
+                <th>Acompañamiento</th>
+                <th>Sesiones Sincrónicas</th>
+                <th>Unidad Orgánica</th>
+                <th>Siglas</th>
+                <th>Requerimiento</th>
+                <th>Público Objetivo</th>
+                <th>Horas Cronológicas</th>
+                <th>Fechas</th>
             </tr>
         </thead>
         <tbody>
             {% for cap in capacitaciones %}
             <tr>
-                <td>{{ cap.codigo }}</td>
-                <td>{{ cap.nombre }}</td>
-                <td>{{ cap.tipo }}</td>
-                <td>{{ cap.fecha_inicio }}</td>
-                <td>{{ cap.fecha_fin }}</td>
-                <td>{{ cap.modalidad }}</td>
+                <td>{{ cap.id_capacitacion }}</td>
+                <td>{{ cap.codigo_capacitacion }}</td>
+                <td>{{ cap.nombre_capacitacion }}</td>
+                <td>{{ cap.tipo_capacitacion }}</td>
+                <td>{{ cap.modalidad_capacitacion }}</td>
+                <td>{{ cap.condicion }}</td>
+                <td>{{ cap.capacitacion_replica }}</td>
+                <td>{{ cap.capacitacion_acompanamiento }}</td>
+                <td>{{ cap.capacitacion_sesiones_sincronicas }}</td>
+                <td>{{ cap.unidad_organica }}</td>
+                <td>{{ cap.siglas_unidad_organica }}</td>
+                <td>{{ cap.oficio_requerimiento }}</td>
+                <td>{{ cap.publico_objetivo }}</td>
+                <td>{{ cap.horas_cronologicas }}</td>
+                <td>
+                    Inicio Convocatoria: {{ cap.convocatoria_fecha_inicio }}<br>
+                    Inicio Implementación: {{ cap.implementacion_fecha_inicio }}<br>
+                    Fin Implementación: {{ cap.implementacion_fecha_fin }}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
