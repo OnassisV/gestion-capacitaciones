@@ -49,43 +49,111 @@ def logout():
 
 @app.route('/capacitaciones')
 def capacitaciones():
-    if 'usuario' not in session:
-        return redirect(url_for('login'))
-
     connection = get_db_connection()
     cursor = connection.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM capacitaciones")
+    
+    # Consulta completa para obtener todas las columnas
+    cursor.execute("""
+        SELECT 
+            c.id_capacitacion, 
+            c.codigo_capacitacion, 
+            c.nombre_capacitacion, 
+            c.tipo_capacitacion, 
+            c.modalidad_capacitacion, 
+            c.condicion, 
+            c.capacitacion_replica, 
+            c.capacitacion_acompanamiento, 
+            c.capacitacion_sesiones_sincronicas, 
+            c.tipo_proceso_fortalecido, 
+            c.recursos_virtuales, 
+            c.monitores, 
+            c.retroalimentacion, 
+            c.proceso_principal_fortalecido, 
+            c.competencia_especifica, 
+            c.capacitacion_aplicacion_inmediata, 
+            c.sub_proceso_fortalecido, 
+            c.rubro_tematico, 
+            u.nombre_unidad_organica AS unidad_organica, 
+            u.siglas AS siglas_unidad_organica, 
+            c.oficio_requerimiento, 
+            c.publico_objetivo, 
+            c.etapa_desarrollo, 
+            c.objetivo_capacitacion, 
+            c.genera_evidencia_comparativa, 
+            c.nivel_capacidad_fortalecida, 
+            c.evaluacion_eficacia_grupo_control, 
+            c.tipo_inscripcion, 
+            c.documento_convocatoria, 
+            c.horas_cronologicas, 
+            c.convocatoria_fecha_inicio, 
+            c.implementacion_fecha_inicio, 
+            c.implementacion_fecha_fin, 
+            c.oficio_dre_ugel_listado, 
+            c.aplica_encuesta_satisfaccion, 
+            c.incluido_reporte_cneb, 
+            c.evidencia_resultado_impacto, 
+            c.oficio_dre_ugel_situacion, 
+            c.carpeta_formatos_enlace, 
+            c.informe_cierre
+        FROM capacitaciones c
+        JOIN unidades_organicas u ON c.id_unidad_organica = u.id_unidad_organica
+    """)
+    
     capacitaciones = cursor.fetchall()
     cursor.close()
     connection.close()
+    
+    return render_template('capacitaciones.html', capacitaciones=capacitaciones)
 
-    return render_template('capacitaciones.html', capacitaciones=capacitaciones, rol=session['rol'])
 
 @app.route('/capacitaciones/add', methods=['GET', 'POST'])
 def add_capacitacion():
     connection = get_db_connection()
 
     if request.method == 'POST':
-        # Datos del formulario
+        # Recibir datos del formulario
         codigo_capacitacion = request.form['codigo_capacitacion']
         nombre_capacitacion = request.form['nombre_capacitacion']
+        tipo_capacitacion = request.form['tipo_capacitacion']
+        modalidad_capacitacion = request.form['modalidad_capacitacion']
+        condicion = request.form['condicion']
+        capacitacion_replica = request.form['capacitacion_replica']
+        capacitacion_acompanamiento = request.form['capacitacion_acompanamiento']
+        capacitacion_sesiones_sincronicas = request.form['capacitacion_sesiones_sincronicas']
+        tipo_proceso_fortalecido = request.form['tipo_proceso_fortalecido']
+        proceso_principal_fortalecido = request.form['proceso_principal_fortalecido']
         id_unidad_organica = request.form['id_unidad_organica']
+        horas_cronologicas = request.form['horas_cronologicas']
+        convocatoria_fecha_inicio = request.form['convocatoria_fecha_inicio']
+        implementacion_fecha_inicio = request.form['implementacion_fecha_inicio']
+        implementacion_fecha_fin = request.form['implementacion_fecha_fin']
+        oficio_requerimiento = request.form['oficio_requerimiento']
+        carpeta_formatos_enlace = request.form['carpeta_formatos_enlace']
+        informe_cierre = request.form['informe_cierre']
 
         # Guardar en la base de datos
         cursor = connection.cursor()
         sql = """
-            INSERT INTO capacitaciones (codigo_capacitacion, nombre_capacitacion, id_unidad_organica, siglas_unidad_organica)
-            VALUES (%s, %s, %s, 
-                (SELECT siglas FROM unidades_organicas WHERE id_unidad_organica = %s))
+            INSERT INTO capacitaciones (codigo_capacitacion, nombre_capacitacion, tipo_capacitacion, modalidad_capacitacion,
+            condicion, capacitacion_replica, capacitacion_acompanamiento, capacitacion_sesiones_sincronicas, tipo_proceso_fortalecido,
+            proceso_principal_fortalecido, id_unidad_organica, horas_cronologicas, convocatoria_fecha_inicio, implementacion_fecha_inicio,
+            implementacion_fecha_fin, oficio_requerimiento, carpeta_formatos_enlace, informe_cierre)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
-        cursor.execute(sql, (codigo_capacitacion, nombre_capacitacion, id_unidad_organica, id_unidad_organica))
+        cursor.execute(sql, (
+            codigo_capacitacion, nombre_capacitacion, tipo_capacitacion, modalidad_capacitacion,
+            condicion, capacitacion_replica, capacitacion_acompanamiento, capacitacion_sesiones_sincronicas,
+            tipo_proceso_fortalecido, proceso_principal_fortalecido, id_unidad_organica, horas_cronologicas,
+            convocatoria_fecha_inicio, implementacion_fecha_inicio, implementacion_fecha_fin,
+            oficio_requerimiento, carpeta_formatos_enlace, informe_cierre
+        ))
         connection.commit()
         cursor.close()
         connection.close()
 
         return redirect(url_for('capacitaciones'))
 
-    # Obtener las unidades orgánicas
+    # Obtener unidades orgánicas
     cursor = connection.cursor(dictionary=True)
     cursor.execute("SELECT id_unidad_organica, nombre_unidad_organica, siglas FROM unidades_organicas")
     unidades = cursor.fetchall()
@@ -93,6 +161,7 @@ def add_capacitacion():
     connection.close()
 
     return render_template('add_capacitacion.html', unidades=unidades)
+
 
 
 @app.route('/actividades')

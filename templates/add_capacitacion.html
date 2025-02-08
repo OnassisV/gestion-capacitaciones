@@ -5,6 +5,7 @@
     <title>Agregar Capacitación</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script>
+        // Actualizar automáticamente las siglas al seleccionar una unidad orgánica
         function actualizarSiglas() {
             const unidadSelect = document.getElementById('unidad_organica');
             const siglasInput = document.getElementById('siglas');
@@ -23,6 +24,64 @@
             <label for="nombre_capacitacion">Nombre de la Capacitación:</label>
             <input type="text" id="nombre_capacitacion" name="nombre_capacitacion" required><br>
 
+            <label for="tipo_capacitacion">Tipo de Capacitación:</label>
+            <select id="tipo_capacitacion" name="tipo_capacitacion">
+                <option value="Sincrónica">Sincrónica</option>
+                <option value="Autoformativa">Autoformativa</option>
+                <option value="B-Learning">B-Learning</option>
+                <option value="Semi Presencial">Semi Presencial</option>
+                <option value="Presencial">Presencial</option>
+                <option value="Programa">Programa</option>
+            </select><br>
+
+            <label for="modalidad_capacitacion">Modalidad de Capacitación:</label>
+            <select id="modalidad_capacitacion" name="modalidad_capacitacion">
+                <option value="Virtual">Virtual</option>
+                <option value="Presencial">Presencial</option>
+                <option value="Mixta">Mixta</option>
+            </select><br>
+
+            <label for="condicion">Condición:</label>
+            <select id="condicion" name="condicion">
+                <option value="Abierta">Abierta</option>
+                <option value="Cerrada">Cerrada</option>
+            </select><br>
+
+            <label for="capacitacion_replica">Capacitación Réplica:</label>
+            <select id="capacitacion_replica" name="capacitacion_replica">
+                <option value="Sí">Sí</option>
+                <option value="No">No</option>
+            </select><br>
+
+            <label for="capacitacion_acompanamiento">Capacitación con Acompañamiento:</label>
+            <select id="capacitacion_acompanamiento" name="capacitacion_acompanamiento">
+                <option value="Sí">Sí</option>
+                <option value="No">No</option>
+            </select><br>
+
+            <label for="capacitacion_sesiones_sincronicas">Capacitación con Sesiones Sincrónicas:</label>
+            <select id="capacitacion_sesiones_sincronicas" name="capacitacion_sesiones_sincronicas">
+                <option value="Sí">Sí</option>
+                <option value="No">No</option>
+            </select><br>
+
+            <label for="tipo_proceso_fortalecido">Tipo de Proceso Fortalecido:</label>
+            <select id="tipo_proceso_fortalecido" name="tipo_proceso_fortalecido">
+                <option value="Soporte">Soporte</option>
+                <option value="Estrategico">Estrategico</option>
+                <option value="Misional">Misional</option>
+            </select><br>
+
+            <label for="proceso_principal_fortalecido">Proceso Principal Fortalecido:</label>
+            <select id="proceso_principal_fortalecido" name="proceso_principal_fortalecido">
+                <option value="PE1">PE1</option>
+                <option value="PE3">PE3</option>
+                <option value="PM1">PM1</option>
+                <option value="PM2">PM2</option>
+                <option value="PO4">PO4</option>
+                <option value="PS1">PS1</option>
+            </select><br>
+
             <label for="unidad_organica">Órgano o Unidad Orgánica:</label>
             <select id="unidad_organica" name="id_unidad_organica" onchange="actualizarSiglas()">
                 {% for unidad in unidades %}
@@ -34,6 +93,27 @@
 
             <label for="siglas">Siglas:</label>
             <input type="text" id="siglas" name="siglas" readonly><br>
+
+            <label for="horas_cronologicas">Horas Cronológicas:</label>
+            <input type="number" id="horas_cronologicas" name="horas_cronologicas"><br>
+
+            <label for="convocatoria_fecha_inicio">Convocatoria: Fecha de Inicio:</label>
+            <input type="date" id="convocatoria_fecha_inicio" name="convocatoria_fecha_inicio"><br>
+
+            <label for="implementacion_fecha_inicio">Implementación: Fecha de Inicio:</label>
+            <input type="date" id="implementacion_fecha_inicio" name="implementacion_fecha_inicio"><br>
+
+            <label for="implementacion_fecha_fin">Implementación: Fecha de Fin:</label>
+            <input type="date" id="implementacion_fecha_fin" name="implementacion_fecha_fin"><br>
+
+            <label for="oficio_requerimiento">Oficio Requerimiento:</label>
+            <input type="text" id="oficio_requerimiento" name="oficio_requerimiento" value="No aplica"><br>
+
+            <label for="carpeta_formatos_enlace">Carpeta de Formatos (Enlace Drive):</label>
+            <input type="text" id="carpeta_formatos_enlace" name="carpeta_formatos_enlace"><br>
+
+            <label for="informe_cierre">Informe de Cierre:</label>
+            <textarea id="informe_cierre" name="informe_cierre" rows="3"></textarea><br>
 
             <button type="submit">✅ Guardar</button>
             <button type="button" onclick="location.href='{{ url_for('capacitaciones') }}'">⬅️ Volver</button>
